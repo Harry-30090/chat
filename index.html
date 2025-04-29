@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Chat</title>
+  <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"></script>
+  <script defer src="app.js"></script>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: auto; }
+    #messages { border: 1px solid #ccc; height: 300px; overflow-y: scroll; margin-bottom: 10px; padding: 5px; }
+    input, button { width: 100%; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <h2>Firebase Chat</h2>
+  <div id="messages"></div>
+  <input id="name" placeholder="Your name">
+  <input id="message" placeholder="Your message">
+  <button onclick="sendMessage()">Send</button>
+</body>
+</html>
