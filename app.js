@@ -1,4 +1,4 @@
-
+console.log(firebase)
   // Replaced this with part with config from Firebase conslole
 
   const firebaseConfig = {
