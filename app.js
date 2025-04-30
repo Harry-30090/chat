@@ -15,6 +15,31 @@ function checkPassword() {
   }
 }
 
+// Request notification permission
+if (Notification.permission !== "granted") {
+  Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+      console.log("Notification permission granted.");
+    }
+  });
+}
+
+// Function to show browser notifications
+function showNotification(message) {
+  if (Notification.permission === "granted") {
+    const name = message.name || "誰か";
+    const text = message.text || "";
+
+    new Notification("新しいブツが送信された", {
+      body: `${name}: ${text}`,
+      icon: "chat-icon.png", // Optional 
+    });
+  }
+}
+
+
+showNotification("Test message: This is a test notification!");
+
 
   // Replaced this with part with config from Firebase conslole
 
@@ -46,11 +71,24 @@ function sendMessage() {
 }
 
 // Listen for new messages
+let knownMessageIds = new Set(); // To keep track of known message IDs
 messagesRef.orderBy("timestamp").onSnapshot(snapshot => {
   const messagesDiv = document.getElementById("messages");
-  messagesDiv.innerHTML = "";
+
   snapshot.forEach(doc => {
     const msg = doc.data();
+    const id = doc.id;
+
+    if (!knownMessageIds.has(id)) {
     messagesDiv.innerHTML += `<p><strong>${msg.name}:</strong> ${msg.text}</p>`;
+
+    // Show notification only for new messages
+    if (!document.hasFocus()) { // Optional: only notify if tab is not focused
+      showNotification(msg);
+    }
+    knownMessageIds.add(id);
+    }
   });
+  
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
 });
