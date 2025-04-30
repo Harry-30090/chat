@@ -1,4 +1,21 @@
-console.log(firebase)
+console.log(window.firebase);  // Add this line
+
+// 🔐 Simple password protection
+const correctPassword = "0730"; // <-- change this to your real password
+
+function checkPassword() {
+  const input = document.getElementById("passwordInput").value;
+  const error = document.getElementById("passwordError");
+  
+  if (input === correctPassword) {
+    document.getElementById("passwordScreen").style.display = "none";
+    document.getElementById("chatUI").style.display = "block";
+  } else {
+    error.textContent = "Incorrect password. Try again.";
+  }
+}
+
+
   // Replaced this with part with config from Firebase conslole
 
   const firebaseConfig = {
