@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Firebase Chat</title>
+  <title>Home</title>
   <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore-compat.js"></script>
+  
   <script defer src="app.js"></script>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
   <style>
     body { font-family: sans-serif; max-width: 500px; margin: auto; }
     #messages { border: 1px solid #ccc; height: 300px; overflow-y: scroll; margin-bottom: 10px; padding: 5px; }
@@ -12,10 +14,21 @@
   </style>
 </head>
 <body>
-  <h2>Firebase Chat</h2>
-  <div id="messages"></div>
-  <input id="name" placeholder="Your name">
-  <input id="message" placeholder="Your message">
-  <button onclick="sendMessage()">Send</button>
+  <!-- Password Gate -->
+  <div id="passwordScreen">
+    <h2>Enter Password to Access</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password" />
+    <button onclick="checkPassword()">Enter</button>
+    <p id="passwordError" style="color:red;"></p>
+  </div>
+  
+  <!-- Chat UI -->
+  <div id="chatUI" style="display:none;">
+    <h2>root()tag:gd293a3</h2>
+    <div id="messages"></div>
+    <input id="name" placeholder="Your name">
+    <input id="message" placeholder="Your message">
+    <button onclick="sendMessage()">Send</button>
+  </div>
 </body>
 </html>
