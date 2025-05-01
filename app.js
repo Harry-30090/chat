@@ -92,3 +92,64 @@ messagesRef.orderBy("timestamp").onSnapshot(snapshot => {
   
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 });
+
+
+// Add event listener to the password input field to send message on Enter key press
+  const passwordInput = document.getElementById("passwordInput");
+  const checkPasswordButton = document.getElementById("checkPassword");
+  // Add event listener for the Enter key on the password input
+  passwordInput.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent form submission if inside a form
+      checkPasswordButton.click(); // Trigger the button click
+    }
+  });
+
+// Add event listener to the message input field to send message on Enter key press
+const input = document.getElementById("message");
+  const sendButton = document.getElementById("sendButton");
+  input.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent form submission if inside a form
+      sendButton.click();
+    }
+  }
+);
+
+
+// Button to toggle chat UI visibility
+let chatHidden = false;
+let websiteOpened = false;
+
+const toggleButton = document.getElementById("toggleChat");
+const passwordScreen = document.getElementById("passwordScreen"); // 👈 Your target element
+const websiteToOpen = "https://classroom.google.com";
+
+toggleButton.addEventListener("click", () => {
+  chatHidden = !chatHidden;
+
+  if (chatHidden) {
+    // First click: hide everything but the button, open website
+    for (const child of document.body.children) {
+      if (child !== toggleButton) {
+        child.style.display = "none";
+      }
+    }
+
+    document.body.style.background = "white";
+
+    window.open(websiteToOpen, "_blank");
+
+  } else {
+    // Second click: show only the password screen
+    for (const child of document.body.children) {
+      if (child !== toggleButton && child !== passwordScreen) {
+        child.style.display = "none";
+      } else if (child === passwordScreen) {
+        child.style.display = "";
+      }
+    }
+
+    document.body.style.background = "";
+  }
+});
