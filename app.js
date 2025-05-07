@@ -1,19 +1,21 @@
 console.log(window.firebase);  // Add this line
 
-// 🔐 Simple password protection
-const correctPassword = "0730"; // <-- change this to your real password
-
 function checkPassword() {
-  const input = document.getElementById("passwordInput").value;
-  const error = document.getElementById("passwordError");
-  
-  if (input === correctPassword) {
+  const pw1 = document.getElementById("password1").value;
+  const pw2 = document.getElementById("passwordInput").value;
+
+  const correct1 = "0730"; // 🔒 Replace with your real password
+  const correct2 = "98632147";
+
+  if (pw1 === correct1 && pw2 === correct2) {
     document.getElementById("passwordScreen").style.display = "none";
-    document.getElementById("chatUI").style.display = "block";
+    document.getElementById("chatUI").style.display = "block"; // 👈 Make sure your chat container has this ID
+    console.log("Passwords are correct. Chat UI is now visible.");
   } else {
-    error.textContent = "Incorrect password. Try again.";
+    alert("Incorrect password(s). Try again.");
   }
 }
+
 
 // Request notification permission
 if (Notification.permission !== "granted") {
