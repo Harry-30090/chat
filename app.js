@@ -72,6 +72,12 @@ function sendMessage() {
   }
 }
 
+// Function to convert URLs in text to clickable links
+function linkify(text) {
+  const urlPattern = /(\bhttps?:\/\/[^\s<]+)/gi;
+  return text.replace(urlPattern, url => `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`);
+}
+
 // Listen for new messages
 let knownMessageIds = new Set(); // To keep track of known message IDs
 messagesRef.orderBy("timestamp").onSnapshot(snapshot => {
@@ -82,16 +88,18 @@ messagesRef.orderBy("timestamp").onSnapshot(snapshot => {
     const id = doc.id;
 
     if (!knownMessageIds.has(id)) {
-    messagesDiv.innerHTML += `<p><strong>${msg.name}:</strong> ${msg.text}</p>`;
+      // Use linkify to convert URLs to links
+      const safeText = linkify(msg.text);
+      messagesDiv.innerHTML += `<p><strong>${msg.name}:</strong> ${safeText}</p>`;
 
-    // Show notification only for new messages
-    if (!document.hasFocus()) { // Optional: only notify if tab is not focused
-      showNotification(msg);
-    }
-    knownMessageIds.add(id);
+      // Show notification only for new messages
+      if (!document.hasFocus()) { // Optional: only notify if tab is not focused
+        showNotification(msg);
+      }
+      knownMessageIds.add(id);
     }
   });
-  
+
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 });
 
